@@ -1,37 +1,29 @@
-# Dataset Documentation
+# Data Source & Workbook Audit: Online Retail II
 
-## Source
-
+## Source Information
 - **Dataset:** Online Retail II
-- **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/502/online+retail+ii)
-- **Original file:** `online_retail_II.xlsx`
-- **Format:** Excel workbook
-- **Worksheets:** `Year 2009-2010`, `Year 2010-2011`
+- **Repository:** UCI Machine Learning Repository
+- **DOI:** https://doi.org/10.24432/C5CG6D
+- **Original File:** `online_retail_II.xlsx`
 
-## Worksheet Audit
+## Worksheet Verification
+| Sheet Name | First Invoice Date | Last Invoice Date | Header Row | Last Used Row | Data Rows |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `Year 2009-2010` | 2009-12-01 | 2010-12-09 | Row 1 | 525,461 | 525,460 |
+| `Year 2010-2011` | 2010-12-01 | 2011-12-09 | Row 1 | 541,910 | 541,909 |
+| **Total** | | | | | **1,067,369** |
 
-| Worksheet | First invoice date | Last invoice date | Last row | Data rows |
-|---|---|---|---:|---:|
-| Year 2009-2010 | To be verified | To be verified | To be verified | To be calculated |
-| Year 2010-2011 | To be verified | To be verified | To be verified | To be calculated |
+## Audit Discrepancy Note
+- **Reported UCI Count:** 1,067,371 records
+- **Actual Combined Sheet Rows:** 1,067,369 records
+- **Discrepancy:** -2 records. This discrepancy will be investigated during database ingestion and validation.
 
-## Columns
-
-- `Invoice`: Invoice identifier
-- `StockCode`: Product identifier
-- `Description`: Product description
-- `Quantity`: Number of units
-- `InvoiceDate`: Invoice date and time
-- `Price`: Price per unit
-- `Customer ID`: Customer identifier
-- `Country`: Country recorded for the transaction
-
-## Data Handling
-
-The original workbook is retained unchanged as source data. Cleaning and analysis will be performed on working copies or imported tables.
-
-The workbook will not be committed to GitHub. This documentation records the source and audit results.
-
-## Audit Status
-
-**In progress.** Worksheet date ranges, row counts, data types, missing values, duplicates, and cancellation records still need to be verified.
+## Column Schema
+- `Invoice`: 6-digit transaction number (starts with 'C' if cancelled)
+- `StockCode`: 5-digit product code
+- `Description`: Product name
+- `Quantity`: Quantities per transaction
+- `InvoiceDate`: Transaction timestamp
+- `Price`: Unit price (GBP)
+- `Customer ID`: 5-digit client identifier
+- `Country`: Customer residence country
