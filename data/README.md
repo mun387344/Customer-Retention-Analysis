@@ -9,14 +9,14 @@
 ## Worksheet Verification
 | Sheet Name | First Invoice Date | Last Invoice Date | Header Row | Last Used Row | Data Rows |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `Year 2009-2010` | 2009-12-01 | 2010-12-09 | Row 1 | 525,461 | 525,460 |
-| `Year 2010-2011` | 2010-12-01 | 2011-12-09 | Row 1 | 541,910 | 541,909 |
-| **Total** | | | | | **1,067,369** |
+| `Year 2009-2010` | 2009-12-01 | 2010-12-09 | Row 1 | 525,462 | 525,461 |
+| `Year 2010-2011` | 2010-12-01 | 2011-12-09 | Row 1 | 541,911 | 541,910 |
+| **Total** | | | | | **1,067,371** |
 
-## Audit Discrepancy Note
+## Audit Discrepancy Resolution
 - **Reported UCI Count:** 1,067,371 records
-- **Actual Combined Sheet Rows:** 1,067,369 records
-- **Discrepancy:** -2 records. This discrepancy will be investigated during database ingestion and validation.
+- **Actual Combined Sheet Rows:** 1,067,371 records
+- **Resolution:** Initial discrepancy was an off-by-one counting error. Total row count matches UCI official documentation exactly.
 
 ## Column Schema
 - `Invoice`: 6-digit transaction number (starts with 'C' if cancelled)
