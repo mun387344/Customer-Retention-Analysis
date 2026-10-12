@@ -13,10 +13,10 @@
 | `Year 2010-2011` | 2010-12-01 | 2011-12-09 | Row 1 | 541,911 | 541,910 |
 | **Total** | | | | | **1,067,371** |
 
-## Audit Discrepancy Resolution
+## Audit Notes
 - **Reported UCI Count:** 1,067,371 records
 - **Actual Combined Sheet Rows:** 1,067,371 records
-- **Resolution:** Initial discrepancy was an off-by-one counting error. Total row count matches UCI official documentation exactly.
+- Row counts match the official repository benchmark exactly.
 
 ## Column Schema
 - `Invoice`: 6-digit transaction number (starts with 'C' if cancelled)
