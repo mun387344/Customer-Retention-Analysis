@@ -115,3 +115,38 @@ SELECT
     PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY days_since_last_order) AS median_days_between_orders
 FROM order_intervals
 WHERE days_since_last_order IS NOT NULL;
+
+-- -----------------------------------------------------------------------------
+-- Question 10: Customer Recency and Dormancy Segmentation
+-- Baseline Reference Date: The maximum invoice_date in the dataset (2011-12-09)
+-- -----------------------------------------------------------------------------
+WITH customer_last_order AS (
+    SELECT 
+        customer_id,
+        MAX(invoice_date::DATE) AS last_purchase_date
+    FROM cleaned_retail_sales
+    GROUP BY customer_id
+),
+dataset_end AS (
+    SELECT MAX(invoice_date::DATE) AS max_date FROM cleaned_retail_sales
+),
+customer_recency AS (
+    SELECT 
+        c.customer_id,
+        c.last_purchase_date,
+        (d.max_date - c.last_purchase_date) AS days_since_last_purchase,
+        CASE 
+            WHEN (d.max_date - c.last_purchase_date) <= 90 THEN 'Active (0-90 days)'
+            WHEN (d.max_date - c.last_purchase_date) <= 180 THEN 'Dormant (91-180 days)'
+            ELSE 'Lapsed (>180 days)'
+        END AS activity_status
+    FROM customer_last_order c
+    CROSS JOIN dataset_end d
+)
+SELECT 
+    activity_status,
+    COUNT(*) AS customer_count,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS customer_pct
+FROM customer_recency
+GROUP BY activity_status
+ORDER BY customer_count DESC;
