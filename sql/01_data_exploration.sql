@@ -1,5 +1,5 @@
 -- =============================================================================
--- Script: 01_data_exploration.sql
+-- 01_data_exploration.sql
 -- Purpose: Data validation and exploration for Online Retail II
 -- =============================================================================
 
