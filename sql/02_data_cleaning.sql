@@ -26,24 +26,8 @@ WHERE customer_id IS NOT NULL
 -- Step 2: Verify the count of clean transactions
 SELECT COUNT(*) AS total_clean_rows
 FROM cleaned_retail_sales;
+--Output: cleaned_retail_sales (779,407 records)
 
 -- Step 3: Index customer_id and invoice_date for high-performance cohort modeling
 CREATE INDEX idx_cleaned_customer_id ON cleaned_retail_sales(customer_id);
 CREATE INDEX idx_cleaned_invoice_date ON cleaned_retail_sales(invoice_date);
-
---Step 4: Calculate total identifiable customers and repeat purchase rate
-WITH customer_order_counts AS (
-    SELECT
-	     customer_id,
-		 COUNT(DISTINCT invoice) AS total_orders
-	FROM cleaned_retail_sales
-	GROUP BY customer_id
-)
-SELECT 
-    COUNT(*) AS total_unique_customers,
-	COUNT(*) FILTER (WHERE total_orders = 1) AS one_time_buyers,
-	COUNT(*) FILTER (WHERE total_orders > 1) AS repeat_buyers,
-	ROUND(
-        COUNT(*) FILTER (WHERE total_orders > 1) * 100.0 / COUNT(*), 2
-	) AS repeat_buyer_percentage
-FROM customer_order_counts;
