@@ -1,1 +1,11 @@
+# Data extract exceeding GitHub limit (>100MB)
 data/tableau_sales_data.csv
+
+# Python / Jupyter environment artifacts
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# OS metadata
+.DS_Store
+Thumbs.db
